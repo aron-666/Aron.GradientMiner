@@ -1,0 +1,14 @@
+version: '1'
+services:
+  gradient:
+    image: aron666/gradient
+    container_name: gradient
+    environment:
+      - NP_TOKEN=token
+      - ADMIN_USER=admin
+      - ADMIN_PASS=admin
+    ports:
+      - 5003:50003
+    build: 
+      context: .
+      dockerfile: Dockerfile
