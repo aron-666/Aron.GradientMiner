@@ -1,4 +1,4 @@
-![Total Visitors](https://komarev.com/ghpvc/?username=aron-666NodePayMiner&color=green)
+![Total Visitors](https://komarev.com/ghpvc/?username=aron-GradientMiner&color=green)
 
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/aron-666/Aron.GradientMiner/blob/master/README.en.md)
 [![中文](https://img.shields.io/badge/lang-中文-blue.svg)](https://github.com/aron-666/Aron.GradientMiner)
@@ -6,8 +6,8 @@
 # Aron.GradientMiner
 Written in .Net 8
 
-## If you find it useful, support me by using my referral code: NwWtzg6qBuzUzXD
-[Register Now at app.gradient.ai](https://app.gradient.ai/register?ref=NwWtzg6qBuzUzXD)
+## If you find it useful, support me by using my referral code: T4U5F3
+[Register Now at app.gradient.network](https://app.gradient.network/signup?code=T4U5F3)
 
 
 
@@ -31,7 +31,8 @@ Written in .Net 8
          image: aron666/gradient
          container_name: gradient
          environment:
-            - NP_TOKEN=token
+            - GR_USER=user
+            - GR_PASS=password
             - ADMIN_USER=admin
             - ADMIN_PASS=admin
             - PROXY_ENABLE=true # false
@@ -39,10 +40,10 @@ Written in .Net 8
             - PROXY_USER=user
             - PROXY_PASS=pass
          ports:
-            - 5003:50003
+            - 5005:50005
    ```
 
-   - Port 5003 will open a port on your computer. Open firewall port 5003 for LAN access.
+   - Port 5005 will open a port on your computer. Open firewall port 5005 for LAN access.
 
 3. Execute
    ```
@@ -53,24 +54,11 @@ Written in .Net 8
    ```
    Then, you can check the backend status using the following URLs:
 
-   - Local: [http://localhost:5003](http://localhost:5003)
-   - Other devices: Open cmd and type `ipconfig`/`ifconfig` to find your LAN IP, then access [http://IP:5003](http://IP:5003)
+   - Local: [http://localhost:5005](http://localhost:5005)
+   - Other devices: Open cmd and type `ipconfig`/`ifconfig` to find your LAN IP, then access [http://IP:5005](http://IP:5005)
      - The process continues even if the webpage is closed.
      - For Windows auto-start, adjust settings in Docker Desktop.
 
 ## 2. Service Installation
 1. Windows: Coming Soon
 2. Linux: Coming Soon
-
-## Update Log
-2024-03-18: Added UI information, fixed login functionality, UI beautification (I'm terrible at frontend).
-
-2024-03-18: Added version update notification, Proxy settings.
-
-2024-04-11: Added Proxy auth.
-
-2024-05-04: Upgrade extension
-
-2024-06-25: Update community node (environment variables must be set)
-
-2024-07-24: Update Community Node / Fix Login Slowness Issue / Modify UI

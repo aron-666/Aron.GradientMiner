@@ -4,11 +4,12 @@ services:
     image: aron666/gradient
     container_name: gradient
     environment:
-      - NP_TOKEN=token
+      - GR_USER=user
+      - GR_PASS=password
       - ADMIN_USER=admin
       - ADMIN_PASS=admin
     ports:
-      - 5003:50003
+      - 5005:50005
     build: 
       context: .
       dockerfile: Dockerfile

@@ -1,4 +1,3 @@
-# �ϥθ��p����¦�M��
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
@@ -8,10 +7,9 @@ COPY . .
 WORKDIR "/src/."
 RUN dotnet publish "Aron.GradientMiner.csproj" -c $BUILD_CONFIGURATION -o /app/publish --self-contained -r linux-x64
 
-# �ϥθ��p���B��ɰ�¦�M��
 FROM debian:bullseye-20240722-slim AS final
-EXPOSE 50003/tcp
-ENV ASPNETCORE_HTTP_PORTS 50003
+EXPOSE 50005/tcp
+ENV ASPNETCORE_HTTP_PORTS 50005
 WORKDIR /app
 
 RUN apt-get update -y
