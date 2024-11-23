@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Aron.GradientMiner.Models
 {
@@ -79,7 +77,6 @@ namespace Aron.GradientMiner.Models
         /// <summary>
         /// 狀態
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public MinerStatus Status { get; set; }
 
         /// <summary>

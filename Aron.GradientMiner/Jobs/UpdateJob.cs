@@ -1,13 +1,12 @@
 ﻿using Aron.GradientMiner.Models;
-using Quartz;
 using System.Net;
 using System.Xml.Linq;
 
 namespace Aron.GradientMiner.Jobs
 {
-    public class UpdateJob(MinerRecord _minerRecord) : IJob
+    public class UpdateJob(MinerRecord _minerRecord)
     {
-        public Task Execute(IJobExecutionContext context)
+        public Task Execute()
         {
             try
             {

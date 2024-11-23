@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 using System.Net;
 using System.Drawing;
-using Newtonsoft.Json;
 using System.Text;
 using Aron.GradientMiner.Models;
 

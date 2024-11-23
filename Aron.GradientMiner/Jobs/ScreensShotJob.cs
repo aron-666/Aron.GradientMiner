@@ -1,16 +1,15 @@
 ﻿using Aron.GradientMiner.Models;
 using Aron.GradientMiner.Services;
 using OpenQA.Selenium;
-using Quartz;
 using System.Drawing;
 using System.Net;
 using System.Xml.Linq;
 
 namespace Aron.GradientMiner.Jobs
 {
-    public class ScreensShotJob(MinerRecord _minerRecord, IMinerService minerService) : IJob
+    public class ScreensShotJob(MinerRecord _minerRecord, IMinerService minerService)
     {
-        public Task Execute(IJobExecutionContext context)
+        public Task Execute()
         {
             try
             {
