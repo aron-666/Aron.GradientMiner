@@ -6,6 +6,9 @@
       <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
         <h2>Use a local account to log in.</h2>
         <hr />
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
         <div class="form-floating mb-3">
           <input type="text" id="userName" class="form-control" name="userName"
                  [(ngModel)]="credentials.Username" #userName="ngModel" required placeholder="UserName">

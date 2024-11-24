@@ -15,6 +15,7 @@ export class LoginComponent {
     Username: '',
     Password: ''
   };
+  errorMessage: string | null = null;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -27,6 +28,7 @@ export class LoginComponent {
       error: (error) => {
         // 處理登錄錯誤，例如顯示錯誤訊息
         console.error('Login failed:', error);
+        this.errorMessage = error.error.resultMsg;
       }
     });
   }
