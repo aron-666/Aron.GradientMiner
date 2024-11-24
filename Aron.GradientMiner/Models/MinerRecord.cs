@@ -27,12 +27,13 @@ namespace Aron.GradientMiner.Models
 
                 for (int i = 0; i < appVersion.Length; i++)
                 {
-                    if (int.Parse(appVersion[i]) < int.Parse(lastAppVersion[i]))
+
+                    if (int.Parse(appVersion[i]) > int.Parse(lastAppVersion[i]))
                     {
-                        return true;
+                        return false;
                     }
                 }
-                return false;
+                return true;
 
             }
         }
