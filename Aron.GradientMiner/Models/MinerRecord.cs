@@ -33,7 +33,7 @@ namespace Aron.GradientMiner.Models
                         return false;
                     }
                 }
-                if (int.Parse(appVersion[appVersion.Length]) == int.Parse(lastAppVersion[appVersion.Length]))
+                if (int.Parse(appVersion[appVersion.Length - 1]) == int.Parse(lastAppVersion[appVersion.Length - 1]))
                     return false;
                 return true;
 
