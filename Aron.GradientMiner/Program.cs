@@ -7,6 +7,7 @@ using Aron.GradientMiner.Services;
 using Aron.GradientMiner.Extensions;
 using Aron.GradientMiner.Data;
 using Aron.GradientMiner.Minimal;
+using HtmlAgilityPack;
 
 internal class Program
 {
@@ -89,20 +90,7 @@ internal class Program
             app.UseMinerAPI();
             app.AddIdentityAPI();
             app.UseIndex();
-            app.UseEndpoints(endpoints =>
-            {
-                // MapFallback to /
-                endpoints.MapFallback((x) => {
-
-                    //go to index
-                    if(x.Response.StatusCode == 404)
-                    {
-                        x.Response.Redirect("/");
-                    }
-                    return Task.CompletedTask;
-
-                });
-            });
+            
 
 
 
