@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
@@ -236,14 +236,14 @@ namespace Aron.GradientMiner.Services
                                 break;
                             }
                         }
-                        if (Enabled && BeforeRefresh.AddSeconds(60) <= DateTime.Now)
+                        if (Enabled && BeforeRefresh.AddMinutes(15 + new Random().Next(5, 20)) <= DateTime.Now)
                         {
                             BeforeRefresh = DateTime.Now;
                             //refresh
                             driver.Navigate().GoToUrl($"chrome-extension://{extensionId}/popup.html");
                             SpinWait.SpinUntil(() => !Enabled, 15000);
                         }
-                        await Task.Delay(5000);
+                        await Task.Delay(15000);
                     }
                 }
                 _minerRecord.Status = MinerStatus.Stop;
