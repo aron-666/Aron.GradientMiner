@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 using System.Net;
 using System.Drawing;
-using Newtonsoft.Json;
 using System.Text;
 using Aron.GradientMiner.Models;
 
@@ -131,6 +129,10 @@ namespace Aron.GradientMiner.Services
                 options.AddArgument("--disable-gpu"); // 禁用 GPU 加速，减少资源占用
                 options.AddArgument("--disable-software-rasterizer"); // 禁用软件光栅化器
                 options.AddArgument("--disable-dev-shm-usage"); // 禁用 /dev/shm 临时文件系统
+                options.AddArgument("--disable-notifications");
+                options.AddArgument("--disable-popup-blocking");
+                options.AddArgument("--disable-infobars");
+                options.AddArgument("--renderer-process-limit=1");
                 //options.AddArgument("--force-dark-mode");
                 options.AddArgument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0");
 
@@ -143,9 +145,6 @@ namespace Aron.GradientMiner.Services
                 {
 
                     Login();
-                    // 前往擴充功能頁面
-                    driver.Navigate().GoToUrl($"chrome-extension://{extensionId}/popup.html");
-                    Console.WriteLine("Go to extension: " + driver.Url);
 
                     // 關閉其他頁面
                     var originalWindow = driver.CurrentWindowHandle;
@@ -159,8 +158,15 @@ namespace Aron.GradientMiner.Services
                     }
                     driver.SwitchTo().Window(originalWindow);
 
+
+                    // 前往擴充功能頁面
+                    driver.Navigate().GoToUrl($"chrome-extension://{extensionId}/popup.html");
+                    Console.WriteLine("Go to extension: " + driver.Url);
+
+                    
+
                     await Task.Delay(new Random().Next(2100, 5455));
-                    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+                    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
 
                     // 檢查是否出現I got it 按鈕
                     IWebElement? iGotItBtn = wait.Until(ExpectedConditions.ElementExists(By.XPath("//*[text()='I got it']")));
@@ -269,6 +275,10 @@ namespace Aron.GradientMiner.Services
             try
             {
                 // 前往登入頁面
+                var originalWindow = driver.CurrentWindowHandle;
+                driver.SwitchTo().Window(originalWindow);
+
+
                 _minerRecord.Status = MinerStatus.LoginPage;
                 driver.Navigate().GoToUrl("https://app.gradient.network");
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(40));

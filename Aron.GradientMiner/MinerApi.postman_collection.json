@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "6c200e95-b5c1-4f46-bee3-3840c4e4071c",
+		"name": "MinerApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29724981"
+	},
+	"item": [
+		{
+			"name": "Identity",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lang\": \"\",\r\n    \"resultObj\": {\r\n        \"Username\": \"admin\",\r\n        \"Password\": \"admin\"\r\n    }\r\n}\r\n\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:50915/Identity/Login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50915",
+							"path": [
+								"Identity",
+								"Login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"lang\": \"\",\r\n    \"resultObj\": {\r\n        \"Username\": \"admin\",\r\n        \"Password\": \"admin\"\r\n    }\r\n}\r\n\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:50915/Identity/Login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "50915",
+									"path": [
+										"Identity",
+										"Login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 23 Nov 2024 13:06:23 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"resultObj\": {\n        \"token_type\": \"bearer\",\n        \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6IjZlMzYyNjdlLWNjOTgtNGZhZC1iOWNiLTkzNGI1Y2RjYWQ0YyIsInJvbGVzIjoiQWRtaW4iLCJuYmYiOjE3MzIzNjcxODQsImV4cCI6MTczMjYyNjM4NCwiaWF0IjoxNzMyMzY3MTg0LCJpc3MiOiJBcm9uNjY2In0.19V93YV5Of30wVrKqNYNUNme8o8UFm9fB-URTMLRU18\",\n        \"expires_in\": 259200,\n        \"username\": \"admin\",\n        \"roles\": [\n            \"Admin\"\n        ],\n        \"issued\": \"2024-11-23T13:06:24.4274431Z\",\n        \"expires\": \"2024-11-26T13:06:24.4274673Z\"\n    },\n    \"lang\": \"\",\n    \"code\": 200,\n    \"success\": true,\n    \"respTime\": \"2024-11-23T13:06:24.4277316Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6IjE1ZDY1Y2QyLWJlOTUtNGM5OC1iYTQ0LTNjODRjMjFhNzM0MyIsInJvbGVzIjoiQWRtaW4iLCJuYmYiOjE3MzIzNjY5MzgsImV4cCI6MTczMjYyNjEzOCwiaWF0IjoxNzMyMzY2OTM4LCJpc3MiOiJBcm9uNjY2In0.Pr9LgNLFQhW9F6KKGSaFowY9eoZ9HD2teE1hODZG4-8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:50915/Identity/Logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50915",
+							"path": [
+								"Identity",
+								"Logout"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:50915/Identity/Logout",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "50915",
+									"path": [
+										"Identity",
+										"Logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 23 Nov 2024 13:03:38 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"resultObj\": \"Logout success\",\n    \"lang\": \"\",\n    \"code\": 200,\n    \"success\": true,\n    \"respTime\": \"2024-11-23T13:03:38.6903715Z\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Miner",
+			"item": [
+				{
+					"name": "GetMinerRecord",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6IjZlMzYyNjdlLWNjOTgtNGZhZC1iOWNiLTkzNGI1Y2RjYWQ0YyIsInJvbGVzIjoiQWRtaW4iLCJuYmYiOjE3MzIzNjcxODQsImV4cCI6MTczMjYyNjM4NCwiaWF0IjoxNzMyMzY3MTg0LCJpc3MiOiJBcm9uNjY2In0.19V93YV5Of30wVrKqNYNUNme8o8UFm9fB-URTMLRU18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:50915/Miner/GetMinerRecord",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50915",
+							"path": [
+								"Miner",
+								"GetMinerRecord"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GetMinerRecord",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:50915/Miner/GetMinerRecord",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "50915",
+									"path": [
+										"Miner",
+										"GetMinerRecord"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 23 Nov 2024 13:06:31 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"AppVersion\": \"1.0.0.2\",\n    \"NeedUpdate\": true,\n    \"IsConnected\": false,\n    \"ReconnectSeconds\": 0,\n    \"ReconnectCounts\": 0,\n    \"Status\": \"LoginPage\",\n    \"PublicIp\": \"2001:b011:c007:9be0:fb12:6cd0:7b59:e4b0\",\n    \"Points\": \"0\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
