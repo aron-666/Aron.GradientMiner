@@ -7,22 +7,21 @@ using System.Xml.Linq;
 
 namespace Aron.GradientMiner.Jobs
 {
-    public class ScreensShotJob(MinerRecord _minerRecord, IMinerService minerService)
+    public class ScreensShotJob(MinerRecord _minerRecord, IMinerService minerService) : IHostedService, IDisposable
     {
-        public Task Execute()
+
+        private Timer _timer;
+        public int Interval { get; } = 5000;
+
+        public void Execute(object state)
         {
             try
             {
                 if (minerService.driver == null)
                 {
-                    return Task.CompletedTask;
+                    return;
                 }
 
-                // 設置瀏覽器窗口大小以包含整個網頁
-                minerService.driver.Manage().Window.Size = new Size(1024, 768);
-
-                // 等待窗口調整完成
-                Thread.Sleep(1000);
 
                 // 截圖
                 Screenshot screenshot = ((ITakesScreenshot)minerService.driver).GetScreenshot();
@@ -32,11 +31,27 @@ namespace Aron.GradientMiner.Jobs
             catch (Exception e)
             {
             }
-            return Task.CompletedTask;
+            return;
 
         }
 
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
+            _timer = new Timer(Execute, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(Interval));
+            return Task.CompletedTask;
+        }
 
+        
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            _timer?.Change(Timeout.Infinite, 0);
+            return Task.CompletedTask;
+        }
+
+        public void Dispose()
+        {
+            _timer?.Dispose();
+        }
 
 
     }

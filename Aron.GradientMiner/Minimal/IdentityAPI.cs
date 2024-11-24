@@ -12,7 +12,7 @@ namespace Aron.GradientMiner.Minimal
         public static WebApplication AddIdentityAPI(this WebApplication app)
         {
 
-            app.MapPost("/Identity/Login", async (HttpContext httpContext, IdentityService identityService) =>
+            app.MapPost("/api/Identity/Login", async (HttpContext httpContext, IdentityService identityService) =>
             {
                 var loginReq = await httpContext.Request.ReadFromJsonAsync<RequestResult<LoginReq>>(MyJsonContext.Default.RequestResultLoginReq.Options);
                 var ret = identityService.Login(loginReq);
@@ -21,7 +21,7 @@ namespace Aron.GradientMiner.Minimal
             });
 
 
-            app.MapDelete("/Identity/Logout", [Authorize] (IdentityService identityService) =>
+            app.MapDelete("/api/Identity/Logout", [Authorize] (IdentityService identityService) =>
             {
                 var ret = identityService.Logout();
                 var options = MyJsonContext.Default.ResponseResultString.Options;

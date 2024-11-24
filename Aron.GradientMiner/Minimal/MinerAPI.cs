@@ -9,7 +9,7 @@ namespace Aron.GradientMiner.Minimal
         public static WebApplication UseMinerAPI(this WebApplication app)
         {
 
-            app.MapGet("/Miner/GetMinerRecord", [Authorize] (MinerRecord minerRecord) =>
+            app.MapGet("/api/Miner/GetMinerRecord", [Authorize] (MinerRecord minerRecord) =>
             {
                 var options = MyJsonContext.Default.MinerRecord.Options;
                 return Results.Json(minerRecord, options);

@@ -76,6 +76,7 @@ namespace Aron.GradientMiner.Extensions
         {
             services.AddScoped<IdentityService>();
             services.AddSingleton<TokenService>();
+            services.AddMemoryCache();
             services.AddApiHelpers();
 
 
@@ -87,57 +88,9 @@ namespace Aron.GradientMiner.Extensions
 
         public static IServiceCollection AddJobs(this IServiceCollection services)
         {
-            //    services.AddTransient<UpdateJob>();
-            //    services.AddTransient<ScreensShotJob>();
-            //    services.AddTransient<ExitJob>();
+            services.AddHostedService<UpdateJob>();
+            services.AddHostedService<ScreensShotJob>();
 
-            //    services.AddQuartz(q =>
-            //    {
-            //        q.UseJobFactory<MyJobFactory>(options =>
-            //        {
-
-            //        });
-
-
-            //        // 显式注册作业
-            //        var jobKey = new JobKey("UpdateIpJob");
-            //        q.AddJob<UpdateJob>(jobKey);
-            //        q.AddTrigger(t => t
-            //            .WithIdentity("UpdateIpJob")
-            //            .ForJob(jobKey)
-            //            .StartNow()
-            //            .WithSimpleSchedule(x => x
-            //                .WithIntervalInMinutes(10)
-            //                .RepeatForever())
-            //        );
-
-            //        var jobKey2 = new JobKey("ScreensShotJob");
-            //        q.AddJob<ScreensShotJob>(jobKey2);
-            //        q.AddTrigger(t => t
-            //            .WithIdentity("ScreensShotJob")
-            //            .ForJob(jobKey2)
-            //            .StartNow()
-            //            .WithSimpleSchedule(x => x
-            //                .WithIntervalInSeconds(5)
-            //                .RepeatForever())
-            //        );
-
-            //        var jobKey3 = new JobKey("ExitJob");
-            //        q.AddJob<ExitJob>(jobKey3);
-            //        q.AddTrigger(t => t
-            //            .WithIdentity("ExitJob")
-            //            .ForJob(jobKey3)
-            //            .StartNow()
-            //            .WithSimpleSchedule(x => x
-            //                .WithIntervalInSeconds(2)
-            //                .RepeatForever())
-            //        );
-            //    });
-
-            //    services.AddQuartzHostedService(opt =>
-            //    {
-            //        opt.WaitForJobsToComplete = true;
-            //    });
             return services;
         }
 
@@ -189,7 +142,6 @@ namespace Aron.GradientMiner.Extensions
             services.AddSingleton<JwtHelpers>();
             services.AddSingleton<TokenService>(); // 註冊 TokenService
 
-            services.AddControllersWithViews();
 
             services
                 .AddAuthentication(options =>
@@ -228,6 +180,11 @@ namespace Aron.GradientMiner.Extensions
                         }
                     };
                 });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+            });
 
             services.AddHttpContextAccessor();
             return services;

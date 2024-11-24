@@ -4,9 +4,12 @@ using System.Xml.Linq;
 
 namespace Aron.GradientMiner.Jobs
 {
-    public class UpdateJob(MinerRecord _minerRecord)
+    public class UpdateJob(MinerRecord _minerRecord) : IHostedService, IDisposable
     {
-        public Task Execute()
+        private Timer _timer;
+        public int Interval { get; } = 10 * 60 * 1000;
+
+        public void Execute(object state)
         {
             try
             {
@@ -28,7 +31,7 @@ namespace Aron.GradientMiner.Jobs
             catch (Exception e)
             {
             }
-            return Task.CompletedTask;
+            return;
 
         }
 
@@ -67,6 +70,23 @@ namespace Aron.GradientMiner.Jobs
             return null;
         }
 
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
+            _timer = new Timer(Execute, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(Interval));
+            return Task.CompletedTask;
+        }
+
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            _timer?.Change(Timeout.Infinite, 0);
+            return Task.CompletedTask;
+        }
+
+        public void Dispose()
+        {
+            _timer?.Dispose();
+        }
 
     }
 }

@@ -42,8 +42,6 @@ RUN apt-get install -y --no-install-recommends \
     iputils-ping \
     ca-certificates \
     chromium \
-    libicu-dev \
-    libc6-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /app/publish .
