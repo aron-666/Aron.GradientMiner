@@ -21,7 +21,7 @@ namespace Aron.GradientMiner.Minimal
             });
 
 
-            app.MapDelete("/api/Identity/Logout", [Authorize] (IdentityService identityService) =>
+            app.MapDelete("/api/Identity/Logout", (IdentityService identityService) =>
             {
                 var ret = identityService.Logout();
                 var options = MyJsonContext.Default.ResponseResultString.Options;

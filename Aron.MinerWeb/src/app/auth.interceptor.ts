@@ -36,8 +36,12 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401 || error.status === 403) {
           // 401 或 403 錯誤，自動登出並導向首頁
-          this.authService.logout();
-          this.router.navigate(['/Account/Login']);
+          this
+            .authService
+            .logout()
+            .subscribe(() => {
+              this.router.navigate(['/Account/Login']);
+            });
         }
         return throwError(error); // 拋出錯誤，讓其他程式碼可以處理
       })

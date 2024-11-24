@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +26,24 @@ export class AuthService {
     );
   }
 
-  logout(): void {
-    this.removeToken();
+  logout(): Observable<any> {
+    const logoutUrl = '/api/Identity/Logout'; // 你的登入 API 端點
+
+
+    return this.http.delete(logoutUrl).pipe(
+      tap((response: any) => {
+        this.removeToken();
+      }),
+      catchError((error) => {
+        this.removeToken();
+        return error;
+      }
+    ));
   }
+
+  // logout(): void {
+  //   this.removeToken();
+  // }
 
   isLoggedIn(): boolean {
     return !!this.getToken();

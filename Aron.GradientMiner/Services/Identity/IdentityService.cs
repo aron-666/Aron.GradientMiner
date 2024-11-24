@@ -74,8 +74,10 @@ namespace Aron.GradientMiner.Services.Identity
             {
                 // get token from header
                 var token = _httpContextAccessor.HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "", StringComparison.OrdinalIgnoreCase);
-
-                _tokenService.RemoveToken(token);
+                if(!string.IsNullOrEmpty(token))
+                {
+                    _tokenService.RemoveToken(token);
+                }
                 return _apiHelper.CreateResponse<string>("", "Logout success");
             }
             catch (Exception ex)
