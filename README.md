@@ -28,20 +28,21 @@
    ```
    version: '1'
    services:
-      gradient:
-         image: aron666/gradient
-         container_name: gradient
-         environment:
-            - GR_USER=user
-            - GR_PASS=password
-            - ADMIN_USER=admin
-            - ADMIN_PASS=admin
-            - PROXY_ENABLE=false # true
-            - PROXY_HOST=http(s)://host:port
-            - PROXY_USER=user
-            - PROXY_PASS=pass
-         ports:
-            - 5005:50005
+     gradient:
+       image: aron666/gradient
+       environment:
+         - GR_USER=user
+         - GR_PASS=password
+         - ADMIN_USER=admin
+         - ADMIN_PASS=admin
+         - PROXY_ENABLE=false # true
+         - PROXY_HOST=http(s)://host:port
+         - PROXY_USER=user
+         - PROXY_PASS=pass
+       ports:
+         - 5005:50005
+       volumes:
+         - ./data:/app/data
    ```
 
    - Port 5005 會在你電腦上開一個 Port，要讓區網連請開防火牆 Port 5005

@@ -27,20 +27,21 @@ Written in .Net 8
    ```
    version: '1'
    services:
-      gradient:
-         image: aron666/gradient
-         container_name: gradient
-         environment:
-            - GR_USER=user
-            - GR_PASS=password
-            - ADMIN_USER=admin
-            - ADMIN_PASS=admin
-            - PROXY_ENABLE=false  # true
-            - PROXY_HOST=http(s)://host:port
-            - PROXY_USER=user
-            - PROXY_PASS=pass
-         ports:
-            - 5005:50005
+     gradient:
+       image: aron666/gradient
+       environment:
+         - GR_USER=user
+         - GR_PASS=password
+         - ADMIN_USER=admin
+         - ADMIN_PASS=admin
+         - PROXY_ENABLE=false # true
+         - PROXY_HOST=http(s)://host:port
+         - PROXY_USER=user
+         - PROXY_PASS=pass
+       ports:
+         - 5005:50005
+       volumes:
+         - ./data:/app/data
    ```
 
    - Port 5005 will open a port on your computer. Open firewall port 5005 for LAN access.
