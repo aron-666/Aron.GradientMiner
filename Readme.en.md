@@ -27,20 +27,21 @@ Written in .Net 8
    ```
    version: '1'
    services:
-      gradient:
-         image: aron666/gradient
-         container_name: gradient
-         environment:
-            - GR_USER=user
-            - GR_PASS=password
-            - ADMIN_USER=admin
-            - ADMIN_PASS=admin
-            - PROXY_ENABLE=false  # true
-            - PROXY_HOST=http(s)://host:port
-            - PROXY_USER=user
-            - PROXY_PASS=pass
-         ports:
-            - 5005:50005
+     gradient:
+       image: aron666/gradient
+       environment:
+         - GR_USER=user
+         - GR_PASS=password
+         - ADMIN_USER=admin
+         - ADMIN_PASS=admin
+         - PROXY_ENABLE=false # true
+         - PROXY_HOST=http(s)://host:port
+         - PROXY_USER=user
+         - PROXY_PASS=pass
+       ports:
+         - 5005:50005
+       volumes:
+         - ./data:/app/data
    ```
 
    - Port 5005 will open a port on your computer. Open firewall port 5005 for LAN access.
@@ -62,3 +63,19 @@ Written in .Net 8
 ## 2. Service Installation
 1. Windows: Coming Soon
 2. Linux: Coming Soon
+
+
+
+# Support the Project
+
+If you find this automated mining bot helpful and would like to support my ongoing development, feel free to:
+
+☕ **Buy me a coffee!** ☕
+
+Your support is like a freshly brewed cup of coffee that keeps me energized to keep coding!
+
+### Donation Addresses
+- **BEP20 (USDT/BNB, etc.):** `0xd14ee77edb0a052eb955db6fcd2a1cdcafeef53e`
+- **TRC20 (USDT, etc.):** `THrEH2tKHxCUiSiuFpGhU99Y4QdChW8dub`
+
+Thank you for your generosity! 🙌

@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
@@ -6,6 +6,7 @@ using System.Net;
 using System.Drawing;
 using System.Text;
 using Aron.GradientMiner.Models;
+using Newtonsoft.Json;
 
 namespace Aron.GradientMiner.Services
 {
@@ -132,7 +133,7 @@ namespace Aron.GradientMiner.Services
                 options.AddArgument("--disable-notifications");
                 options.AddArgument("--disable-popup-blocking");
                 options.AddArgument("--disable-infobars");
-                options.AddArgument("--renderer-process-limit=1");
+                options.AddArgument("--renderer-process-limit=3");
                 //options.AddArgument("--force-dark-mode");
                 options.AddArgument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0");
 
@@ -236,7 +237,8 @@ namespace Aron.GradientMiner.Services
                                 break;
                             }
                         }
-                        if (Enabled && BeforeRefresh.AddSeconds(60) <= DateTime.Now)
+                        // 20-35 分鐘後重新整理
+                        if (Enabled && BeforeRefresh.AddMinutes(15 + new Random().Next(5, 20)) <= DateTime.Now)
                         {
                             BeforeRefresh = DateTime.Now;
                             //refresh
@@ -264,12 +266,7 @@ namespace Aron.GradientMiner.Services
             }
         }
 
-        static void SetLocalStorageItem(IWebDriver driver, string key, string value)
-        {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript($"window.localStorage.setItem('{key}', '{value}');");
-        }
-
+        
         private void Login()
         {
             try
@@ -307,59 +304,8 @@ namespace Aron.GradientMiner.Services
             }
         }
 
-        static void SetCookie(IWebDriver driver, string key, string value)
-        {
-            driver.Manage().Cookies.AddCookie(new OpenQA.Selenium.Cookie(key, value, "/", DateTime.UtcNow.AddYears(1)));
-        }
-
-        static string GetLocalStorageItem(IWebDriver driver, string key)
-        {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            return (string)js.ExecuteScript($"return window.localStorage.getItem('{key}');");
-        }
 
 
-        static string SetLocalStorageItem2(ChromeDriver driver, string key, string value)
-        {
-            driver.ExecuteScript($"localStorage.setItem('{key}', '{value}');");
-            var result = driver.ExecuteScript($"return localStorage.getItem('{key}');") as string;
-            return result;
-        }
-
-        static void AddCookieToLocalStorage(ChromeDriver driver, string npToken)
-        {
-            string[] keys = { "np_webapp_token", "np_token" };
-            foreach (string key in keys)
-            {
-                SetLocalStorageItem2(driver, key, npToken);
-            }
-        }
-
-        static bool WaitForElementExists(ChromeDriver driver, By by, int timeout = 10)
-        {
-            try
-            {
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeout)).Until(ExpectedConditions.ElementExists(by));
-                return true;
-            }
-            catch (WebDriverTimeoutException)
-            {
-                return false;
-            }
-        }
-
-        static IWebElement WaitForElement(IWebDriver driver, By by, int timeout = 10)
-        {
-            try
-            {
-                var element = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout)).Until(ExpectedConditions.ElementExists(by));
-                return element;
-            }
-            catch (WebDriverTimeoutException e)
-            {
-                throw;
-            }
-        }
 
     }
 }
