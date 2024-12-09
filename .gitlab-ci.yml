@@ -4,11 +4,11 @@ stages:
 
 variables:
   DOCKER_DRIVER: overlay2
-  IMAGE_NAME: "aron666/aron.grassminer"
+  IMAGE_NAME: "aron666/gradient"
   TAG_LATEST: "test"
   # TAG_VERSION: "1.0.2.10"
   BRANCH: develop
-  PROJECT_NAME: "Aron.GrassMiner"
+  PROJECT_NAME: "Aron.GradientMiner"
   DOCKER_TLS_CERTDIR: "" # 禁用 TLS 驗證
 
 # 定義 Docker login 的全局設置
