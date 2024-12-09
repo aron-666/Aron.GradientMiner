@@ -5,7 +5,7 @@ stages:
 variables:
   DOCKER_DRIVER: overlay2
   IMAGE_NAME: "aron666/gradient"
-  TAG_LATEST: "test"
+  TAG_LATEST: "latest"
   TAG_VERSION: "1.0.0.5"
   BRANCH: main
   PROJECT_NAME: "Aron.GradientMiner"
