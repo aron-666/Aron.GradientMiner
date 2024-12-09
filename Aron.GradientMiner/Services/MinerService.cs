@@ -103,11 +103,10 @@ namespace Aron.GradientMiner.Services
 
 
                 // 設定 Chrome 擴充功能路徑
-                string chromedriverPath = "./chromedriver";
+                string chromedriverPath = "/usr/bin/chromedriver";
 
                 // 建立 Chrome 選項
                 ChromeOptions options = new ChromeOptions();
-                options.AddArgument("--chromedriver=" + chromedriverPath);
                 if (!_appConfig.ShowChrome)
                     options.AddArgument("--headless=new");
                 options.AddArgument("--no-sandbox");
@@ -141,7 +140,7 @@ namespace Aron.GradientMiner.Services
 
 
                 // 建立 Chrome 瀏覽器
-                driver = new ChromeDriver(options);
+                driver = new ChromeDriver(chromedriverPath, options);
                 try
                 {
 
