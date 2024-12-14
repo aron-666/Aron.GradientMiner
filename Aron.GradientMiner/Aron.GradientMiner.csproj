@@ -12,8 +12,8 @@
 		<NeutralLanguage>zh-TW</NeutralLanguage>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/aron-666/Aron.GradientMiner</RepositoryUrl>
-		<FileVersion>1.0.0.5</FileVersion>
-		<AssemblyVersion>1.0.0.5</AssemblyVersion>
+		<FileVersion>1.0.0.6</FileVersion>
+		<AssemblyVersion>1.0.0.6</AssemblyVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PublishAot>true</PublishAot>
 		<IsAotCompatible>true</IsAotCompatible>
@@ -36,6 +36,13 @@
 
 	<ItemGroup>
 		<None Include="..\*.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\.gitlab-ci.yml">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
