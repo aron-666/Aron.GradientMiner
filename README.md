@@ -42,7 +42,7 @@
        ports:
          - 5005:50005
        volumes:
-         - ./data:/app/data
+         - ./data:/app/UserData
    ```
 
    - Port 5005 會在你電腦上開一個 Port，要讓區網連請開防火牆 Port 5005
