@@ -12,8 +12,8 @@
 		<NeutralLanguage>zh-TW</NeutralLanguage>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/aron-666/Aron.GradientMiner</RepositoryUrl>
-		<FileVersion>1.0.0.6</FileVersion>
-		<AssemblyVersion>1.0.0.6</AssemblyVersion>
+		<FileVersion>1.0.0.7</FileVersion>
+		<AssemblyVersion>1.0.0.7</AssemblyVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PublishAot>true</PublishAot>
 		<IsAotCompatible>true</IsAotCompatible>

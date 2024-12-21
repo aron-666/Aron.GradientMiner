@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Text;
 using Aron.GradientMiner.Models;
 using Newtonsoft.Json;
+using System.Diagnostics.Metrics;
 
 namespace Aron.GradientMiner.Services
 {
@@ -104,7 +105,7 @@ namespace Aron.GradientMiner.Services
 
                 // 設定 Chrome 擴充功能路徑
                 string chromedriverPath = "/usr/bin/chromedriver";
-                
+
                 // 建立 Chrome 選項
                 ChromeOptions options = new ChromeOptions();
                 if (!_appConfig.ShowChrome)
@@ -135,6 +136,10 @@ namespace Aron.GradientMiner.Services
                 options.AddArgument("--renderer-process-limit=3");
                 //options.AddArgument("--force-dark-mode");
                 options.AddArgument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0");
+                string userDataDir = Path.Combine(Directory.GetCurrentDirectory(), "UserData");
+                if (!Directory.Exists(userDataDir))
+                    Directory.CreateDirectory(userDataDir);
+                options.AddArgument("--user-data-dir=" + userDataDir);
 
                 options.AddExtension(extensionPath);
 
@@ -152,7 +157,7 @@ namespace Aron.GradientMiner.Services
                 try
                 {
 
-                    Login();
+                    await Login();
 
                     // 關閉其他頁面
                     var originalWindow = driver.CurrentWindowHandle;
@@ -171,7 +176,7 @@ namespace Aron.GradientMiner.Services
                     driver.Navigate().GoToUrl($"chrome-extension://{extensionId}/popup.html");
                     Console.WriteLine("Go to extension: " + driver.Url);
 
-                    
+
 
                     await Task.Delay(new Random().Next(2100, 5455));
                     WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
@@ -182,7 +187,7 @@ namespace Aron.GradientMiner.Services
                     {
                         iGotItBtn.Click();
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -202,9 +207,9 @@ namespace Aron.GradientMiner.Services
                 {
                     try
                     {
-                        
-                        
-                        if(!driver.PageSource.Contains("Disconnected") && driver.PageSource.Contains("Status"))
+
+
+                        if (!driver.PageSource.Contains("Disconnected") && driver.PageSource.Contains("Status"))
                         {
                             _minerRecord.Status = MinerStatus.Connected;
                             //$('img[alt="token"]')
@@ -273,8 +278,8 @@ namespace Aron.GradientMiner.Services
             }
         }
 
-        
-        private void Login()
+
+        private async Task Login()
         {
             try
             {
@@ -285,13 +290,54 @@ namespace Aron.GradientMiner.Services
 
                 _minerRecord.Status = MinerStatus.LoginPage;
                 driver.Navigate().GoToUrl("https://app.gradient.network");
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(40));
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
 
                 Console.WriteLine("Go to app: " + driver.Url);
 
                 // 等待 email 輸入框出現並填入 email
-                IWebElement emailInput = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("input[placeholder='Enter Email']")));
-                emailInput.SendKeys(_appConfig.UserName);
+                try
+                {
+                    wait.Timeout = TimeSpan.FromSeconds(3);
+                    bool isEmailInputExist = false;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        try
+                        {
+                            IWebElement emailInput = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("input[placeholder='Enter Email']")));
+                            emailInput.SendKeys(_appConfig.UserName);
+                            isEmailInputExist = true;
+                            break;
+                        }
+                        catch
+                        {
+                            if (driver.PageSource.Contains("dashboard"))
+                            {
+                                throw new Exception("Already login.");
+                            }
+                        }
+
+                    }
+
+                    if (!isEmailInputExist)
+                        throw new Exception("Timed out after 30 seconds.");
+                    wait.Timeout = TimeSpan.FromSeconds(30);
+
+
+                }
+                catch (Exception ex)
+                {
+                    if (driver.PageSource.Contains("dashboard"))
+                    {
+                        if (CheckUser())
+                            return;
+                        else
+                        {
+                            await Logout();
+                            throw;
+                        }
+                    }
+                    throw;
+                }
 
                 // 等待密碼輸入框出現並填入密碼
                 IWebElement passwordInput = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("input[placeholder='Enter Password']")));
@@ -311,8 +357,47 @@ namespace Aron.GradientMiner.Services
             }
         }
 
+        private async Task Logout()
+        {
+            try
+            {
+                await Task.Delay(3000);
+                driver.Navigate().GoToUrl("https://app.gradient.network/dashboard/setting");
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+                IWebElement? logoutBtn = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[text()='Log Out']")));
+                logoutBtn.Click();
+                // confirm
+                IWebElement? confirmBtn = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[text()='Confirm']")));
+                confirmBtn.Click();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
 
+        private bool CheckUser()
+        {
+            try
+            {
+                driver.Navigate().GoToUrl("https://app.gradient.network/dashboard/setting");
+                // wait for svg element exist
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+                IWebElement? element = wait.Until(ExpectedConditions.ElementExists(By.XPath("//div[text()='Current Boost']")));
+                if (element != null)
+                {
+                    if (driver.PageSource.Contains(_appConfig.UserName))
+                        return true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return false;
+
+        }
 
 
     }
+
 }

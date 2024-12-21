@@ -41,7 +41,7 @@ Written in .Net 8
        ports:
          - 5005:50005
        volumes:
-         - ./data:/app/data
+         - ./data:/app/UserData
    ```
 
    - Port 5005 will open a port on your computer. Open firewall port 5005 for LAN access.
