@@ -356,3 +356,4 @@ Aron.GradientMiner/Properties/launchSettings.json
 Aron.GradientMiner.WinControl/app/
 
 Aron.GradientMiner/logs/
+**/UserData/
