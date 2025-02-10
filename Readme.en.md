@@ -75,6 +75,7 @@ If you find this automated mining bot helpful and would like to support my ongoi
 Your support is like a freshly brewed cup of coffee that keeps me energized to keep coding!
 
 ### Donation Addresses
+- [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/Aron666)
 - **BEP20 (USDT/BNB, etc.):** `0xd14ee77edb0a052eb955db6fcd2a1cdcafeef53e`
 - **TRC20 (USDT, etc.):** `THrEH2tKHxCUiSiuFpGhU99Y4QdChW8dub`
 
