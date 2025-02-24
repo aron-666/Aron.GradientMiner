@@ -6,7 +6,7 @@ variables:
   DOCKER_DRIVER: overlay2
   IMAGE_NAME: "aron666/gradient"
   TAG_LATEST: "latest"
-  TAG_VERSION: "1.0.0.8"
+  TAG_VERSION: "1.0.0.9"
   BRANCH: main
   PROJECT_NAME: "Aron.GradientMiner"
   DOCKER_TLS_CERTDIR: "" # 禁用 TLS 驗證
